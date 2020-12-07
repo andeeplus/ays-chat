@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 
-const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
-const NEW_USER_CONNECTED_EVENT = "newUserConnected";
+const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
+const NEW_USER_CONNECTED_EVENT = 'newUserConnected'
 const LATEST_50MSG_EVENT = 'Latest50msg'
 
-const SOCKET_SERVER_URL = 'http://localhost:4000'
+const SOCKET_SERVER_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:4000'
+    : 'https://radio.armyoursampler.com/api'
 
 const useChat = (roomId, name) => {
   const [messages, setMessages] = useState([])
@@ -19,10 +22,9 @@ const useChat = (roomId, name) => {
     })
 
     socketRef.current.on(LATEST_50MSG_EVENT, (backupMsg) => {
-      if(backupMsg){
-
-        if(!messages.length) setMessages(backupMsg)
-        else setMessages(messages => [...backupMsg, ...messages])
+      if (backupMsg) {
+        if (!messages.length) setMessages(backupMsg)
+        else setMessages((messages) => [...backupMsg, ...messages])
       }
     })
 
@@ -35,14 +37,13 @@ const useChat = (roomId, name) => {
     })
 
     socketRef.current.on(NEW_USER_CONNECTED_EVENT, (users) => {
-      console.log({users})
       setConnectedUsers(users[roomId])
     })
 
     return () => {
       socketRef.current.disconnect()
     }
-     // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, [roomId, username])
 
   const sendMessage = (messageBody) => {

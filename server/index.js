@@ -45,7 +45,6 @@ io.on('connection', (socket) => {
     io.in(roomId).emit(NEW_USER_CONNECTED_EVENT, connectedUsers)
 
     if (!connectedUsers[roomId].length) {
-      console.log(connectedUsers)
       delete previousMessages[roomId]
     }
     socket.leave(roomId)

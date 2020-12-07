@@ -13,6 +13,8 @@ RUN npm install
 
 RUN rm -f /srv/app/ays-chat-client/.npmrc
 
-RUN npm run build
+COPY . /srv/app/ays-chat-client
+
+RUN npm run start
 
 COPY . /srv/app/ays-chat-client

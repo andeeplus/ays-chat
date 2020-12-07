@@ -20,9 +20,9 @@ services:
 
   client:
     tty: true
-    build:       
+    build: 
       context: ./client/
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     environment: 
       - APP_CLIENT_PORT=${APP_CLIENT_PORT}
     expose:

@@ -1,5 +1,11 @@
 # AYS Chat 
 
+## Prod
 ```
-docker-compose up --build 
+docker-compose -f docker-compose.prod.yml up -d --build  
+```
+
+## Dev
+```
+docker-compose -f docker-compose.dev.yml up -d --build  
 ```
