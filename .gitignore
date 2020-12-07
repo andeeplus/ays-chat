@@ -1,4 +1,6 @@
+.env
 /client/node_modules
 /client/.npmrc
-.env
+/client/Dockerfile
 /server/node_modules
+/server/Dockerfile
