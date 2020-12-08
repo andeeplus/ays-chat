@@ -3,16 +3,18 @@ version: '3'
 services:
 # Setup server
   server:
-    build: ./server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
     expose: 
       - ${APP_SERVER_PORT}
     environment: 
       API_HOST: ${API_HOST}
-      APP_SERVER_PORT: ${APP_SERVER_PORT}
+      APP-SERVER_PORT: ${APP_SERVER_PORT}
     ports: 
       - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
     volumes:
-      - ./server/src:/srv/app-ays-chat-server/src
+      - ./server/src:/server/src
     command: npm run start
 
 
@@ -20,7 +22,7 @@ services:
 
   client:
     tty: true
-    build:       
+    build:
       context: ./client
       dockerfile: Dockerfile.dev
     environment: 
@@ -30,8 +32,8 @@ services:
     ports: 
       - ${APP_CLIENT_PORT}:${APP_CLIENT_PORT}
     volumes:
-      - ./client/src:/srv/app-ays-chat-client/src
-      - ./client/public:/srv/app-ays-chat-client/public
+      - ./client/src:/client/src
+      - ./client/public:/client/public
     links:
       - server
     command: npm run start

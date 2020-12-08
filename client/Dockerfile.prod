@@ -1,22 +1,18 @@
 # build environment
-FROM node:12-alpine
+FROM node:12-alpine 
 
-# Create app dir and use it as the working dir
-RUN mkdir -p /srv/app/ays-chat-client
-WORKDIR /srv/app/ays-chat-client
+WORKDIR /client
 
-COPY .npmrc /srv/app/ays-chat-client/.npmrc
+ENV PATH /client/node_modules/.bin:$PATH
 
-COPY package.json /srv/app/ays-chat-client
-COPY package.json /srv/app/ays-chat-client
+COPY .npmrc /client
 
-RUN npm install
+COPY package.json /client
 
-RUN rm -f /srv/app/ays-chat-client/.npmrc
+RUN yarn --silent
 
-COPY . /srv/app/ays-chat-client
+RUN rm -f /client/.npmrc
 
-RUN npm run build
+COPY . /client
 
-COPY . /srv/app/ays-chat-client
-
+RUN yarn build
