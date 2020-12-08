@@ -9,10 +9,9 @@ COPY .npmrc /client
 
 COPY package.json /client
 
-RUN yarn --silent
-
+RUN npm install
 RUN rm -f /client/.npmrc
 
 COPY . /client
 
-RUN yarn build
+RUN npm run build
