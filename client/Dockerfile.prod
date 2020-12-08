@@ -1,17 +1,26 @@
-# build environment
-FROM node:12-alpine 
+FROM node:12-alpine as builder
 
-WORKDIR /client
+RUN mkdir -p /srv/client
+WORKDIR /srv/client
 
-ENV PATH /client/node_modules/.bin:$PATH
+ENV PATH /srv/client/node_modules/.bin:$PATH
 
-COPY .npmrc /client
+COPY .npmrc /srv/client
 
-COPY package.json /client
+COPY package.json /srv/client
 
 RUN npm install
-RUN rm -f /client/.npmrc
+RUN rm -f /srv/client/.npmrc
 
-COPY . /client
+COPY . /srv/client
 
 RUN npm run build
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+
+# production environment
+FROM nginx:1.15.10-alpine
+COPY --from=builder /srv/client/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

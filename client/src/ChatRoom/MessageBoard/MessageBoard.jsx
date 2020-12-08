@@ -45,7 +45,6 @@ const MessageBoard = ({ messages, username, ...props }) => {
     >
       {messages.map((message, i) => (
         <Message
-
           alignSelf={isSameUser(message, username) ? 'flex-end' : 'flex-start'}
           justifyContent={
             isSameUser(message, username) ? 'flex-end' : 'flex-start'

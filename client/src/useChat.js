@@ -8,7 +8,7 @@ const LATEST_50MSG_EVENT = 'Latest50msg'
 const SOCKET_SERVER_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:4000'
-    : 'https://radio.armyoursampler.com/api'
+    : 'https://radio.armyoursampler.com/api/'
 
 const useChat = (roomId, name) => {
   const [messages, setMessages] = useState([])

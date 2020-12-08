@@ -1,18 +1,19 @@
 FROM node:12-alpine
 
 # Create app dir and use it as the working dir
-RUN mkdir -p /client
-WORKDIR /client
+RUN mkdir -p /srv/client
+WORKDIR /srv/client
 
-COPY .npmrc /client/.npmrc
+ENV PATH /srv/client/node_modules/.bin:$PATH
 
-COPY package.json /client
-COPY package.json /client
+COPY .npmrc /srv/client/.npmrc
+
+COPY package.json /srv/client
 
 RUN npm install
 
-RUN rm -f /client/.npmrc
+RUN rm -f /srv/client/.npmrc
 
-COPY . /client
+COPY . /srv/client
 
-RUN npm run start
+# CMD ["npm","run","start"]
