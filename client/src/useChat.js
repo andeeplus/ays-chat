@@ -5,7 +5,7 @@ const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 const NEW_USER_CONNECTED_EVENT = 'newUserConnected'
 const LATEST_50MSG_EVENT = 'Latest50msg'
 
-const SOCKET_SERVER_URL =
+const SOCKET_SERVER_URL = 
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:4000'
     : 'https://radio.armyoursampler.com'
@@ -19,6 +19,7 @@ const useChat = (roomId, name) => {
   useEffect(() => {
     socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
       query: { roomId, username: username.current },
+      transports: ['websocket'],
     })
 
     socketRef.current.on(LATEST_50MSG_EVENT, (backupMsg) => {

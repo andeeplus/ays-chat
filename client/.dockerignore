@@ -2,3 +2,5 @@ node_modules
 .dockerignore
 Dockerfile.dev
 Dockerfile.prod
+dist
+.cache

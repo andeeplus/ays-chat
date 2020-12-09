@@ -3,10 +3,10 @@
 
 ## Prod
 ```
-docker-compose -f docker-compose.prod.yml up -d --build  
+./build.sh prod   
 ```
 
 ## Dev
 ```
-docker-compose -f docker-compose.dev.yml up -d --build  
+./build.sh dev   
 ```
