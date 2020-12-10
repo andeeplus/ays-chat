@@ -40,7 +40,7 @@ services:
     networks:
       - net-chat
     ports:
-      - "80:80"
+      - 3003:3003
 
 networks:
   net-chat:
