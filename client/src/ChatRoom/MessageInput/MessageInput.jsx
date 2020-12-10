@@ -34,6 +34,7 @@ const WriteMessage = ({ sendMessage }) => {
         type="arrowRight"
         size={20}
         position="absolute"
+        disabled={!newMessage}
         bottom={0}
         right={0}
         m={2}

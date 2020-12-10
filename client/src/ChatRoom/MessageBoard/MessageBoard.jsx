@@ -64,7 +64,7 @@ const MessageBoard = ({ messages, username, ...props }) => {
               px={1}
               my={1}
               borderRadius="3px"
-              bg="gray.7"
+              bg="gray.4"
               width="fit-content"
             >
               <Text textSize="xs" color="white" textTransform="uppercase">
