@@ -1,5 +1,5 @@
 const server = require('http').createServer()
-const io = require('socket.io')(server)
+const io = require('socket.io')(server, { path: '/api/socket.io' })
 
 const PORT = 4000
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
