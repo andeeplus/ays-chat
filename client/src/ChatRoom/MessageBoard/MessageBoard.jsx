@@ -38,6 +38,7 @@ const MessageBoard = ({ messages, username, ...props }) => {
       mt={5}
       p={3}
       width="100%"
+      height="calc(100vh - 240px)"
       overflow="scroll"
       borderTop="1px solid"
       borderColor="gray.2"
