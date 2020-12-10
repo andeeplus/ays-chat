@@ -7,8 +7,8 @@ const LATEST_50MSG_EVENT = 'Latest50msg'
 
 const SOCKET_SERVER_URL = 
   process.env.NODE_ENV === 'development'
-    ? 'http://localhost:4000'
-    : 'https://radio.armyoursampler.com'
+    ? 'http://localhost:4000/api/socket.io'
+    : 'http://radio.armyoursampler.com/api/socket.io'
 
 const useChat = (roomId, name) => {
   const [messages, setMessages] = useState([])
@@ -18,6 +18,7 @@ const useChat = (roomId, name) => {
 
   useEffect(() => {
     socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
+      path: '/api/socket.io',
       query: { roomId, username: username.current },
       transports: ['websocket'],
     })
