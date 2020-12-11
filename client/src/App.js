@@ -12,6 +12,21 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     height: 100%;
     margin: 0;
+        scrollbar-width: thin;
+    scrollbar-color: ${(p) => p.theme.colors.gray[8]} ${(p) =>
+  p.theme.colors.gray[0]};
+  }
+  ::-webkit-scrollbar {
+    width: 11px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: ${(p) => p.theme.colors.gray[0]};
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${(p) => p.theme.colors.gray[3]} ;
+    border-radius: 6px;
+    border: 3px solid ${(p) => p.theme.colors.gray[1]};
   }
 
   body, input, button, a, textarea {
@@ -24,8 +39,8 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <Router>
-      <GlobalStyle />
       <ThemeProvider theme={theme}>
+      <GlobalStyle />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/:roomId" component={ChatRoom} />

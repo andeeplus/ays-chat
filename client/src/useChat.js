@@ -10,8 +10,19 @@ const SOCKET_SERVER_URL =
     ? 'http://localhost:4000'
     : 'https://radio.armyoursampler.com'
 
+function ISOtoLongDate(isoString, locale = "en-US") {
+  const options = { timeStyle: "medium" };
+  const date = new Date(isoString);
+  const longDate = new Intl.DateTimeFormat(locale, options).format(date);
+  return longDate;
+}
+
+const getIsoString = () => new Date().toISOString();
+
+
 const useChat = (roomId, name) => {
   const [messages, setMessages] = useState([])
+
   const [connectedUsers, setConnectedUsers] = useState([])
   const username = useRef(name)
   const socketRef = useRef()
@@ -48,10 +59,15 @@ const useChat = (roomId, name) => {
     // eslint-disable-next-line
   }, [roomId, username])
 
+  useEffect(() => {
+
+  })
+
   const sendMessage = (messageBody) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
       body: messageBody,
       senderId: socketRef.current.id,
+      timestamp: ISOtoLongDate(getIsoString(), "it-IT")
     })
   }
 

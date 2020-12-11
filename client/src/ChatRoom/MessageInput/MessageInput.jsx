@@ -1,8 +1,10 @@
-import React from 'react'
-import { Box, TextArea, ActionButton } from '@andeeplus/aplus-ui'
+import React, { useEffect, useRef } from 'react'
+import { Box, TextArea, Icon, Button } from '@andeeplus/aplus-ui'
+import ResizableTextarea from '../../components/ResizableTextArea'
 
 const WriteMessage = ({ sendMessage }) => {
   const [newMessage, setNewMessage] = React.useState('')
+  const textArea = useRef()
 
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value)
@@ -13,35 +15,49 @@ const WriteMessage = ({ sendMessage }) => {
     setNewMessage('')
   }
 
+  const handleOnKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage()
+    }
+  }
+
+  useEffect(() => {
+    if (textArea.current) {
+      textArea.current.focus()
+    }
+  }, [])
+
   return (
     <Box
-      height="80px"
+      minHeight="60px"
       m={3}
+      p={2}
       css="textarea{resize:none}"
       position="fixed"
       bottom={0}
       width="-webkit-fill-available"
+      bg="white"
     >
-      <TextArea
+      <ResizableTextarea
         p={2}
+        ref={textArea}
         boxSizing="border-box"
         value={newMessage}
         onChange={handleNewMessageChange}
+        onKeyDown={handleOnKeyDown}
         placeholder="Write message..."
         fontSize="16px"
       />
-      <ActionButton
-        type="arrowRight"
-        size={20}
-        position="absolute"
+      <Button
+        minWidth="48px"
+        width="48px"
         disabled={!newMessage}
-        bottom={0}
-        right={0}
         m={2}
+        mainColor="gray.3"
         onClick={handleSendMessage}
       >
-        Send
-      </ActionButton>
+        <Icon size={24} icon="arrowRight" fill={newMessage && 'white'} />
+      </Button>
     </Box>
   )
 }
