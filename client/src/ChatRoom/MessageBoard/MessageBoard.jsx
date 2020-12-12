@@ -23,7 +23,7 @@ const MessageBoard = ({ messages, username, ...props }) => {
       borderColor="gray.2"
       {...props}
     >
-      <Box height="100%" width="100%" column overflowY="scroll">
+      <Box width="100%" column overflowY="scroll">
         {messages.map((message, i) => (
           <Messages
             key={i}

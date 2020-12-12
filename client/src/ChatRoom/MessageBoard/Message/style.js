@@ -16,7 +16,6 @@ Message.defaultProps = {
   width: '55%',
   borderRadius: '3px',
   mb: 3,
-  mt: 3,
   mx: 2,
 }
 

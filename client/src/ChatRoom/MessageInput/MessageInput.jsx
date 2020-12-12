@@ -30,8 +30,7 @@ const WriteMessage = ({ sendMessage }) => {
   return (
     <Box
       minHeight="60px"
-      m={3}
-      p={2}
+      p={3}
       css="textarea{resize:none}"
       position="fixed"
       bottom={0}
@@ -49,8 +48,8 @@ const WriteMessage = ({ sendMessage }) => {
         fontSize="16px"
       />
       <Button
-        minWidth="48px"
-        width="48px"
+        minWidth="40px"
+        width="40px"
         disabled={!newMessage}
         m={2}
         mainColor="gray.3"
