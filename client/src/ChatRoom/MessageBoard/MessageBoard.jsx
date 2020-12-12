@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { Box } from '@andeeplus/aplus-ui'
-import Messages from './Message'
+import Messages from '../Message'
 
 const AlwaysScrollToBottom = () => {
   const elementRef = useRef()
@@ -12,7 +12,7 @@ const AlwaysScrollToBottom = () => {
 
 const MessageBoard = ({ messages, username, ...props }) => {
   return (
-    <Box {...props}>
+    <Box width="100%" {...props}>
       {messages.map((message, i) => (
         <Messages
           key={i}

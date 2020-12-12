@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react'
-import { Box, TextArea, Icon, Button } from '@andeeplus/aplus-ui'
+import { Box, Icon, Button } from '@andeeplus/aplus-ui'
 import ResizableTextarea from '../../components/ResizableTextArea'
 
-const WriteMessage = ({ sendMessage, ...props }) => {
+const WriteMessage = ({ sendMessage, actualRoom, ...props }) => {
   const [newMessage, setNewMessage] = React.useState('')
   const textArea = useRef()
 
@@ -29,13 +29,12 @@ const WriteMessage = ({ sendMessage, ...props }) => {
 
   return (
     <Box
-      minHeight="60px"
       p={3}
       css="textarea{resize:none}"
-      width="-webkit-fill-available"
-      position="sticky"
-      bottom="0"
-      bg="white"
+      width="100%"
+      alignItems="flex-end"
+      borderTop="1px solid"
+      borderColor="gray.2"
       {...props}
     >
       <ResizableTextarea
@@ -45,15 +44,18 @@ const WriteMessage = ({ sendMessage, ...props }) => {
         value={newMessage}
         onChange={handleNewMessageChange}
         onKeyDown={handleOnKeyDown}
-        placeholder="Write message..."
+        placeholder={`Message #${actualRoom}`}
         fontSize="16px"
+        maxWidth="calc(100% - 40px)"
       />
       <Button
+        position="fixed"
+        right={0}
         minWidth="40px"
+        m={2}
         width="40px"
         disabled={!newMessage}
-        m={2}
-        mainColor="gray.3"
+        mainColor="gray.7"
         onClick={handleSendMessage}
       >
         <Icon size={24} icon="arrowRight" fill={newMessage && 'white'} />

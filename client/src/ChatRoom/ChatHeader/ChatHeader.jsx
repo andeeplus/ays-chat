@@ -6,9 +6,16 @@ import { actualRoomSelector } from '../../store/modules/user/selectors'
 const ChatHeader = ({ connectedUsers, ...props }) => {
   const actualRoom = useSelector(actualRoomSelector)
   return (
-    <Box column pb={3} bg="white" {...props}>
-      <Heading m={3}>Room: {actualRoom}</Heading>
-      <Box column mx={3} alignItems="flex-start" minHeight="54px">
+    <Box
+      width="100%"
+      p={3}
+      borderBottom="1px solid"
+      borderColor="gray.2"
+      column
+      {...props}
+    >
+      <Heading>Room: {actualRoom}</Heading>
+      <Box column alignItems="flex-start" minHeight="54px">
         <Text textSize="xs" mr={1}>
           Connected users:
         </Text>
