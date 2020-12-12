@@ -1,18 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button, InputField, Box } from '@andeeplus/aplus-ui'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  actualRoomSelector,
+  usernameSelector,
+} from '../../store/modules/user/selectors'
+import { actions } from '../../store/modules/user/reducer'
 
 const LoginBox = () => {
-  const [roomName, setRoomName] = React.useState('')
-  const [username, setUsername] = React.useState('')
+  const dispatch = useDispatch()
+  const actualRoom = useSelector(actualRoomSelector)
+  const username = useSelector(usernameSelector)
+  const setUsername = (username) => dispatch(actions.setUsername({ username }))
+  const setActualRoom = (actualRoom) =>
+    dispatch(actions.setActualRoom({ actualRoom }))
 
   const handleRoomNameChange = (event) => {
-    setRoomName(event.target.value)
+    setActualRoom(event.target.value)
   }
 
   const handleUsernameChange = (event) => {
+    console.log(event.target.value)
     setUsername(event.target.value)
   }
+
+  console.log(username)
 
   return (
     <Box
@@ -28,7 +41,7 @@ const LoginBox = () => {
       <InputField
         type="text"
         placeholder="Room"
-        value={roomName}
+        value={actualRoom}
         textAlign="center"
         boxSizing="border-box"
         m={2}
@@ -43,7 +56,8 @@ const LoginBox = () => {
         m={2}
         onChange={handleUsernameChange}
       />
-      <Link to={`/${roomName}?username=${username}`}>
+      {console.log(`/${actualRoom}?username=${username}`)}
+      <Link to={`/${actualRoom}?username=${username}`}>
         <Button m={2}>Join room</Button>
       </Link>
     </Box>

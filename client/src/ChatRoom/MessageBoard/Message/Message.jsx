@@ -1,46 +1,11 @@
 import React, { memo, useEffect, useRef } from 'react'
-import styled from 'styled-components'
 import { Box, Icon, Text } from '@andeeplus/aplus-ui'
-
-const Message = styled(Box)`
-  width: 55%;
-  word-break: break-word;
-  transition: all 0.5s ease;
-  &:hover {
-    .icon {
-      opacity: 1;
-    }
-  }
-`
-
-Message.defaultProps = {
-  p: 1,
-  width: '55%',
-  borderRadius: '3px',
-}
-
-const checkPrevMessageSameUser = (messages, i) => {
-  return messages[i - 1] && messages[i - 1].username === messages[i].username
-}
-
-const isSameUser = (message, username) => {
-  console.log(
-    message,
-    message.ownedByCurrentUser || message.username === username,
-  )
-  return message.ownedByCurrentUser || message.username === username
-}
-
-const getDisplayTimestamp = (messages, i) => {
-  if (messages[i - 1]) {
-    const [prevH, prevM, prevS] = messages[i - 1].timestamp.split(':')
-    const [h, m, s] = messages[i - 1].timestamp.split(':')
-    const isSameMinute = prevH === h && prevM === m
-    console.log(prevH, h, prevM, m, isSameMinute)
-    return isSameMinute ? 'none' : 'block'
-  }
-  return 'block'
-}
+import { Message, Timestamp } from './style'
+import {
+  isSameUser,
+  getDisplayTimestampDisplay,
+  checkPrevMessageSameUser,
+} from '../../utils'
 
 const Messages = memo(({ message, username, messages, index }) => {
   const messageToRead = useRef()
@@ -57,26 +22,16 @@ const Messages = memo(({ message, username, messages, index }) => {
 
   return (
     <>
-      <Text
+      <Timestamp
         textAlign={sameUser ? 'end' : 'start'}
-        display={getDisplayTimestamp(messages, index)}
-        fontSize="10px"
-        color="gray.4"
-        textTransform="uppercase"
-        mb={1}
-        mt={2}
-        mx={3}
+        display={getDisplayTimestampDisplay(messages, index)}
       >
         {message.timestamp}
-      </Text>
+      </Timestamp>
       <Message
         alignSelf={sameUser ? 'flex-end' : 'flex-start'}
         justifyContent={sameUser ? 'flex-end' : 'flex-start'}
         bg={sameUser ? 'gray.1' : 'yellow.0'}
-        borderRadius="3px"
-        mb={3}
-        mx={3}
-        mb={2}
       >
         <Box column width="100%">
           <Box
