@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { Box, TextArea, Icon, Button } from '@andeeplus/aplus-ui'
 import ResizableTextarea from '../../components/ResizableTextArea'
 
-const WriteMessage = ({ sendMessage }) => {
+const WriteMessage = ({ sendMessage, ...props }) => {
   const [newMessage, setNewMessage] = React.useState('')
   const textArea = useRef()
 
@@ -32,10 +32,11 @@ const WriteMessage = ({ sendMessage }) => {
       minHeight="60px"
       p={3}
       css="textarea{resize:none}"
-      position="fixed"
-      bottom={0}
       width="-webkit-fill-available"
+      position="sticky"
+      bottom="0"
       bg="white"
+      {...props}
     >
       <ResizableTextarea
         p={2}
