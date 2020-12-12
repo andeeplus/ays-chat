@@ -6,7 +6,7 @@ const NEW_USER_CONNECTED_EVENT = 'newUserConnected'
 const LATEST_50MSG_EVENT = 'Latest50msg'
 
 const SOCKET_SERVER_URL = 
-  process.env.NODE_ENV === 'development'
+  process.env.NODE_ENV !== 'development'
     ? 'http://localhost:4000'
     : 'https://radio.armyoursampler.com'
 

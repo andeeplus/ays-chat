@@ -32,7 +32,10 @@ const WriteMessage = ({ sendMessage, actualRoom, ...props }) => {
   return (
     <Box
       p={3}
-      pb={6}
+      zIndex={1}
+      bg="white"
+      position="fixed"
+      bottom={0}
       css="textarea{resize:none}"
       width="100%"
       alignItems="flex-end"

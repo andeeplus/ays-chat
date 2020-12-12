@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useChat from '../useChat'
-import { Box } from '@andeeplus/aplus-ui'
 import MessageInput from './MessageInput'
 import MessageBoard from './MessageBoard'
 import ChatHeader from './ChatHeader'
@@ -10,7 +9,7 @@ import {
   usernameSelector,
 } from '../store/modules/user/selectors'
 import { actions } from '../store/modules/user/reducer'
-import Layout from './Layout'
+import { Box } from '@andeeplus/aplus-ui'
 
 const ChatRoom = (props) => {
   const dispatch = useDispatch()
@@ -40,25 +39,19 @@ const ChatRoom = (props) => {
   }, [username])
 
   return (
-    <Layout>
-      <Layout.Header>
-        <ChatHeader
-          messages={messages}
-          connectedUsers={connectedUsers}
-          sendMessage={sendMessage}
-          actualRoom={props.match.params.roomId}
-        />
-      </Layout.Header>
-      <Layout.Content column justifyContent="flex-end">
-        <MessageBoard messages={messages} username={username} />
-      </Layout.Content>
-      <Layout.Footer>
-        <MessageInput
-          sendMessage={sendMessage}
-          actualRoom={props.match.params.roomId}
-        />
-      </Layout.Footer>
-    </Layout>
+    <Box column height="100%">
+      <ChatHeader
+        messages={messages}
+        connectedUsers={connectedUsers}
+        sendMessage={sendMessage}
+        actualRoom={props.match.params.roomId}
+      />
+      <MessageBoard messages={messages} username={username} />
+      <MessageInput
+        sendMessage={sendMessage}
+        actualRoom={props.match.params.roomId}
+      />
+    </Box>
   )
 }
 

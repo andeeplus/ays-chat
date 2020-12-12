@@ -7,8 +7,13 @@ const ChatHeader = ({ connectedUsers, ...props }) => {
   const actualRoom = useSelector(actualRoomSelector)
   return (
     <Box
-      width="100%"
       p={3}
+      zIndex={1}
+      bg="white"
+      position="sticky"
+      top={0}
+      width="100%"
+      height="115px"
       borderBottom="1px solid"
       borderColor="gray.2"
       column
