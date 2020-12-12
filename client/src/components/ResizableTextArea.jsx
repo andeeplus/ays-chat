@@ -16,8 +16,8 @@ const ExtendedTextArea = styled(TextArea)`
 `
 
 const initTAState = {
-  rows: 2,
-  minRows: 2,
+  rows: 1,
+  minRows: 1,
   maxRows: 10,
 }
 

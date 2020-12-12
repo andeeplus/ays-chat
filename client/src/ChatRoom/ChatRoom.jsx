@@ -49,13 +49,8 @@ const ChatRoom = (props) => {
           actualRoom={props.match.params.roomId}
         />
       </Layout.Header>
-      <Layout.Content>
-        <MessageBoard
-          column
-          css="list-style-type: none;"
-          messages={messages}
-          username={username}
-        />
+      <Layout.Content column justifyContent="flex-end">
+        <MessageBoard messages={messages} username={username} />
       </Layout.Content>
       <Layout.Footer>
         <MessageInput

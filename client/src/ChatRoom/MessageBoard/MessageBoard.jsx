@@ -12,7 +12,13 @@ const AlwaysScrollToBottom = () => {
 
 const MessageBoard = ({ messages, username, ...props }) => {
   return (
-    <Box width="100%" {...props}>
+    <Box
+      column
+      css="list-style-type: none;"
+      width="100%"
+      maxHeight="100%"
+      {...props}
+    >
       {messages.map((message, i) => (
         <Messages
           key={i}
