@@ -39,7 +39,7 @@ const ChatRoom = (props) => {
   }, [username])
 
   return (
-    <Box column maxHeight="100vh">
+    <Box column>
       <ChatHeader
         messages={messages}
         connectedUsers={connectedUsers}

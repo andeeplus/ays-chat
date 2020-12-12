@@ -21,7 +21,7 @@ const Messages = memo(({ message, username, messages, index }) => {
   }
 
   return (
-    <>
+    <Box column width="100%">
       <Timestamp
         textAlign={sameUser ? 'end' : 'start'}
         display={getDisplayTimestampDisplay(messages, index)}
@@ -72,7 +72,7 @@ const Messages = memo(({ message, username, messages, index }) => {
           </Text>
         </Box>
       </Message>
-    </>
+    </Box>
   )
 })
 
