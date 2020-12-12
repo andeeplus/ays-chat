@@ -10,6 +10,7 @@ import {
   usernameSelector,
 } from '../store/modules/user/selectors'
 import { actions } from '../store/modules/user/reducer'
+import Layout from './Layout'
 
 const ChatRoom = (props) => {
   const dispatch = useDispatch()
@@ -39,39 +40,30 @@ const ChatRoom = (props) => {
   }, [username])
 
   return (
-    <Box maxHeight="100vh">
-      <Box
-        width="100vw"
-        display="grid"
-        gridTemplateColumns="1fr"
-        gridTemplateRows="auto 1fr auto"
-        gridTemplateAreas="'header' 'main' 'footer'"
-      >
+    <Layout>
+      <Layout.Header>
         <ChatHeader
-          gridArea="header"
           messages={messages}
           connectedUsers={connectedUsers}
-          roomId={props.match.params.roomId}
-          borderBottom="1px solid"
-          borderColor="gray.2"
+          sendMessage={sendMessage}
+          actualRoom={props.match.params.roomId}
         />
-        <Box
-          p={2}
-          gridArea="main"
-          height="calc(100vh - 224px);"
-          overflow="auto"
-        >
-          <MessageBoard
-            column
-            css="list-style-type: none;"
-            width="100%"
-            messages={messages}
-            username={username}
-          />
-        </Box>
-        <MessageInput gridArea="footer" sendMessage={sendMessage} />
-      </Box>
-    </Box>
+      </Layout.Header>
+      <Layout.Content>
+        <MessageBoard
+          column
+          css="list-style-type: none;"
+          messages={messages}
+          username={username}
+        />
+      </Layout.Content>
+      <Layout.Footer>
+        <MessageInput
+          sendMessage={sendMessage}
+          actualRoom={props.match.params.roomId}
+        />
+      </Layout.Footer>
+    </Layout>
   )
 }
 

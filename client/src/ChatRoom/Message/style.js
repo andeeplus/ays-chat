@@ -12,8 +12,8 @@ const Message = styled(Box)`
 `
 
 Message.defaultProps = {
-  p: 1,
-  width: '55%',
+  p: 2,
+  width: '70%',
   borderRadius: '3px',
   mb: 3,
   mx: 2,

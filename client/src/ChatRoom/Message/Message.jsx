@@ -5,7 +5,7 @@ import {
   isSameUser,
   getDisplayTimestampDisplay,
   checkPrevMessageSameUser,
-} from '../../utils'
+} from '../utils'
 
 const Messages = memo(({ message, username, messages, index }) => {
   const messageToRead = useRef()

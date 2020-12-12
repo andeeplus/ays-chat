@@ -3,12 +3,10 @@ import { createGlobalStyle } from 'styled-components'
 export default createGlobalStyle`
   body {
     margin: 0;
-    height: 100%;
-    margin: 0;
-        scrollbar-width: thin;
-    scrollbar-color: ${(p) => p.theme.colors.gray[8]} ${(p) =>
-  p.theme.colors.gray[0]};
+    scrollbar-width: thin;
+    scrollbar-color: ${(p) => p.theme.colors.gray[8]} ${(p) => p.theme.colors.gray[0]};
   }
+  
   ::-webkit-scrollbar {
     width: 11px;
   }
