@@ -39,14 +39,38 @@ const ChatRoom = (props) => {
   }, [username])
 
   return (
-    <Box column>
-      <ChatHeader
-        messages={messages}
-        connectedUsers={connectedUsers}
-        roomId={props.match.params.roomId}
-      />
-      <MessageBoard messages={messages} username={username} />
-      <MessageInput sendMessage={sendMessage} />
+    <Box maxHeight="100vh">
+      <Box
+        width="100vw"
+        display="grid"
+        gridTemplateColumns="1fr"
+        gridTemplateRows="auto 1fr auto"
+        gridTemplateAreas="'header' 'main' 'footer'"
+      >
+        <ChatHeader
+          gridArea="header"
+          messages={messages}
+          connectedUsers={connectedUsers}
+          roomId={props.match.params.roomId}
+          borderBottom="1px solid"
+          borderColor="gray.2"
+        />
+        <Box
+          p={2}
+          gridArea="main"
+          height="calc(100vh - 224px);"
+          overflow="auto"
+        >
+          <MessageBoard
+            column
+            css="list-style-type: none;"
+            width="100%"
+            messages={messages}
+            username={username}
+          />
+        </Box>
+        <MessageInput gridArea="footer" sendMessage={sendMessage} />
+      </Box>
     </Box>
   )
 }
