@@ -1,10 +1,13 @@
 import React from 'react'
 import { Box, Heading, Text } from '@andeeplus/aplus-ui'
+import { useSelector } from 'react-redux'
+import { actualRoomSelector } from '../../store/modules/user/selectors'
 
-const ChatHeader = ({ connectedUsers, roomId }) => {
+const ChatHeader = ({ connectedUsers }) => {
+  const actualRoom = useSelector(actualRoomSelector)
   return (
     <Box column height={['100px']} bg="white">
-      <Heading m={3}>Room: {roomId}</Heading>
+      <Heading m={3}>Room: {actualRoom}</Heading>
       <Box column mx={3} alignItems="flex-start">
         <Text textSize="xs" mr={1}>
           Connected users:
