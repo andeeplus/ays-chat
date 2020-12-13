@@ -31,4 +31,13 @@ export default createGlobalStyle`
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
   }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  input[type="text" i] {
+    padding: 0px 4px;
+  }
 `

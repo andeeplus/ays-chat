@@ -10,24 +10,29 @@ const AlwaysScrollToBottom = () => {
   return <div ref={elementRef} />
 }
 
-const MessageBoard = ({ messages, username, ...props }) => {
+const MessageBoard = ({ messages = [], username, ...props }) => {
   return (
     <Box
+      pb="115px"
       column
+      position="absolute"
+      top="130px"
       css="list-style-type: none;"
       width="100%"
-      maxHeight="100%"
+      justifyContent="flex-end"
       {...props}
     >
-      {messages.map((message, i) => (
-        <Messages
-          key={i}
-          messages={messages}
-          message={message}
-          username={username}
-          index={i}
-        />
-      ))}
+      <Box column overflowY="scroll">
+        {messages.map((message, i) => (
+          <Messages
+            key={i}
+            messages={messages}
+            message={message}
+            username={username}
+            index={i}
+          />
+        ))}
+      </Box>
       <AlwaysScrollToBottom />
     </Box>
   )

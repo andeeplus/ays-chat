@@ -30,7 +30,6 @@ const ResizableTextarea = forwardRef(({ value, onChange, ...props }, ref) => {
 
     const previousRows = event.target.rows
     event.target.rows = minRows // reset number of rows in textarea
-    console.dir(event.target)
 
     const currentRows = ~~(event.target.scrollHeight / textareaLineHeight)
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { Box, Icon, Button } from '@andeeplus/aplus-ui'
-import ResizableTextarea from '../../components/ResizableTextArea'
-import useDeviceDetect from '../../hooks/useDeviceDetect'
+import ResizableTextarea from '../../../components/ResizableTextArea'
+import useDeviceDetect from '../../../hooks/useDeviceDetect'
 
 const WriteMessage = ({ sendMessage, actualRoom, ...props }) => {
   const [newMessage, setNewMessage] = React.useState('')
@@ -18,7 +18,7 @@ const WriteMessage = ({ sendMessage, actualRoom, ...props }) => {
   }
 
   const handleOnKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && newMessage.trim() !== '') {
       handleSendMessage()
     }
   }
@@ -27,12 +27,15 @@ const WriteMessage = ({ sendMessage, actualRoom, ...props }) => {
     if (textArea.current && !isMobile) {
       textArea.current.focus()
     }
-  }, [])
+  }, [isMobile])
 
   return (
     <Box
       p={3}
-      pb={6}
+      zIndex={1}
+      bg="white"
+      position="fixed"
+      bottom={0}
       css="textarea{resize:none}"
       width="100%"
       alignItems="flex-end"
@@ -56,7 +59,6 @@ const WriteMessage = ({ sendMessage, actualRoom, ...props }) => {
         ml={2}
         width="40px"
         disabled={!newMessage}
-        mainColor="gray.7"
         onClick={handleSendMessage}
       >
         <Icon size={20} icon="arrowRight" fill={newMessage && 'white'} />

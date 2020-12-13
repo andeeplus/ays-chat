@@ -1,27 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
+import { getIsoString, ISOtoLongDate } from '../utils/chat'
 
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 const NEW_USER_CONNECTED_EVENT = 'newUserConnected'
-const LATEST_50MSG_EVENT = 'Latest50msg'
+const PREVIOUS_MESSAGES_REQUEST_EVENT = 'previousMessagesRequest'
+const NEW_CHAT_SET_TOPIC_EVENT = 'setTopic'
 
-const SOCKET_SERVER_URL = 
+const SOCKET_SERVER_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:4000'
     : 'https://radio.armyoursampler.com'
 
-function ISOtoLongDate(isoString, locale = "en-US") {
-  const options = { timeStyle: "medium" };
-  const date = new Date(isoString);
-  const longDate = new Intl.DateTimeFormat(locale, options).format(date);
-  return longDate;
-}
-
-const getIsoString = () => new Date().toISOString();
-
-
 const useChat = (roomId, name) => {
   const [messages, setMessages] = useState([])
+  const [topic, setTopic] = useState('')
 
   const [connectedUsers, setConnectedUsers] = useState([])
   const username = useRef(name)
@@ -34,11 +27,15 @@ const useChat = (roomId, name) => {
       transports: ['websocket'],
     })
 
-    socketRef.current.on(LATEST_50MSG_EVENT, (backupMsg) => {
+    socketRef.current.on(PREVIOUS_MESSAGES_REQUEST_EVENT, (backupMsg) => {
       if (backupMsg) {
         if (!messages.length) setMessages(backupMsg)
         else setMessages((messages) => [...backupMsg, ...messages])
       }
+    })
+
+    socketRef.current.on(NEW_CHAT_SET_TOPIC_EVENT, ({ topic: newTopic }) => {
+      setTopic(newTopic)
     })
 
     socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
@@ -59,19 +56,21 @@ const useChat = (roomId, name) => {
     // eslint-disable-next-line
   }, [roomId, username])
 
-  useEffect(() => {
-
-  })
+  useEffect(() => {})
 
   const sendMessage = (messageBody) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
       body: messageBody,
       senderId: socketRef.current.id,
-      timestamp: ISOtoLongDate(getIsoString(), "it-IT")
+      timestamp: ISOtoLongDate(getIsoString(), 'it-IT'),
     })
   }
 
-  return { messages, sendMessage, connectedUsers }
+  const requestSetTopic = (topic) => {
+    socketRef.current.emit(NEW_CHAT_SET_TOPIC_EVENT, topic)
+  }
+
+  return { messages, topic, sendMessage, requestSetTopic, connectedUsers }
 }
 
 export default useChat
