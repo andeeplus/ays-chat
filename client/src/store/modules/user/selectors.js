@@ -17,8 +17,14 @@ const actualRoomSelector = createSelector(
   user => user.actualRoom
 )
 
+const actualRoomNameSelector = createSelector(
+  userSelect,
+  user => decodeURIComponent(user.actualRoom)
+)
+
 export {
   usernameSelector,
   roomsSelector,
+  actualRoomNameSelector,
   actualRoomSelector
 }

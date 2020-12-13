@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = { username: '', rooms: '', actualRoom: '' }
+const initialState = { username: '', rooms: [], actualRoom: '' }
 
 const userSlice = createSlice({
   name: 'userSlice',
@@ -9,10 +9,13 @@ const userSlice = createSlice({
     setUsername(state, { payload: { username } }) {
       state.username = username
     },
-    setRooms(state, { payload: { rooms } }) {
-      state.rooms = rooms
+    deleteRoom(state, { payload: { roomId } }) {
+      state.rooms = state.rooms.filter(room => room !== roomId)
     },
     setActualRoom(state, { payload: { actualRoom } }) {
+      if (!state.rooms.includes(actualRoom)){
+        state.rooms.push(actualRoom)
+      }
       state.actualRoom = actualRoom
     },
   },

@@ -1,57 +1,71 @@
-import React from 'react'
-import { Box, Heading, Text } from '@andeeplus/aplus-ui'
+import { useEffect, useState } from 'react'
+import { Box, Button, Icon, InputField } from '@andeeplus/aplus-ui'
 import { useSelector } from 'react-redux'
 import { actualRoomSelector } from '../../../store/modules/user/selectors'
+import { useHistory } from 'react-router-dom'
+import ConnectedUsers from './ConnectedUser'
+import { InnerChatHeader, HeadingWithEllipsis } from './styles'
+import CopyUrl from './CopyUrl'
+import TopicLine from './TopicLine'
 
-const ChatHeader = ({ connectedUsers, ...props }) => {
+const ChatHeader = ({ connectedUsers, topic, requestSetTopic, ...props }) => {
   const actualRoom = useSelector(actualRoomSelector)
+  const [showTopicBar, setShowTopicBar] = useState(false)
+  const [newTopic, setNewTopic] = useState()
+  let history = useHistory()
+  const goToHome = () => history.push('/')
+
+  const toggleTopicBar = () => setShowTopicBar((show) => !show)
+
+  const roomName = decodeURIComponent(actualRoom)
+
+  const requestSetTopicAndCloseTab = () => {
+    if (newTopic) requestSetTopic({ topic: newTopic })
+    toggleTopicBar()
+  }
+
+  const handleOnKeyDownTopic = (e) => {
+    if (e.key === 'Enter') requestSetTopicAndCloseTab()
+  }
+
+  const handleTopicChange = (event) => {
+    setNewTopic(event.target.value)
+  }
+
   return (
-    <Box
-      p={3}
-      zIndex={1}
-      bg="white"
-      position="absolute"
-      top={0}
-      width="100%"
-      height="115px"
-      borderBottom="1px solid"
-      borderColor="gray.2"
-      column
-      {...props}
-    >
-      <Heading>Room: {actualRoom}</Heading>
-      <Box column alignItems="flex-start" minHeight="54px">
-        <Text textSize="xs" mr={1}>
-          Connected users:
-        </Text>
-        <Box>
-          {connectedUsers.map((connected) => (
-            <Box
-              key={connected.socketId}
-              px={1}
-              my={1}
-              mr={1}
-              borderRadius="3px"
-              width="fit-content"
-              alignItems="center"
-              border="1px solid"
-              borderColor="gray.7"
-            >
-              <Box
-                bg="green.4"
-                p={1}
-                borderRadius="50%"
-                border="1px solid"
-                borderColor="green.6"
-              />
-              <Text textSize="xs" textTransform="uppercase" px={1} py={1}>
-                {connected.username}
-              </Text>
-            </Box>
-          ))}
+    <InnerChatHeader {...props}>
+      <Box alignItems="center">
+        <Button m={3} mr={0} minWidth="40px" width="40px" onClick={goToHome}>
+          <Icon icon="back" size={16} fill="white" />
+        </Button>
+        <Box width="100%" column p={3}>
+          <Box width="calc(100% - 60px)">
+            <HeadingWithEllipsis title={roomName}>
+              {decodeURIComponent(roomName)}
+            </HeadingWithEllipsis>
+            <CopyUrl roomId={actualRoom} />
+          </Box>
+          <TopicLine topic={topic} toggleTopicBar={toggleTopicBar} />
         </Box>
       </Box>
-    </Box>
+      <ConnectedUsers connectedUsers={connectedUsers} />
+      {showTopicBar && (
+        <Box p={2} alignItems="center" bg="white" shadow="small" width="100%">
+          <InputField
+            type="text"
+            placeholder="Set new topic..."
+            boxSizing="border-box"
+            defaultValue={topic}
+            onChange={handleTopicChange}
+            onKeyDown={handleOnKeyDownTopic}
+          />
+          <Button m={3} onClick={requestSetTopicAndCloseTab}>
+            <Icon icon="plusSign" size={10} mr={2} fill="white" />
+            Topic
+          </Button>
+        </Box>
+      )}
+    </InnerChatHeader>
   )
 }
 

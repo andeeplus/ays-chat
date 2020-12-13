@@ -36,4 +36,8 @@ export default createGlobalStyle`
     text-decoration: none;
     color: inherit;
   }
+
+  input[type="text" i] {
+    padding: 0px 4px;
+  }
 `

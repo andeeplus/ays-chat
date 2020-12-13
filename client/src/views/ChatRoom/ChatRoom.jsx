@@ -10,47 +10,46 @@ import {
   usernameSelector,
 } from '../../store/modules/user/selectors'
 import { actions } from '../../store/modules/user/reducer'
+import { useParams } from 'react-router-dom'
 
 const ChatRoom = (props) => {
   const dispatch = useDispatch()
-  const setUsername = (username) => dispatch(actions.setUsername({ username }))
+  const { roomId } = useParams()
   const setActualRoom = (actualRoom) =>
     dispatch(actions.setActualRoom({ actualRoom }))
   const actualRoom = useSelector(actualRoomSelector)
-  const storedUsername = useSelector(usernameSelector)
+  const username = useSelector(usernameSelector)
 
-  const username = props.location.search.split('?username=')[1]
-  const { messages, sendMessage, connectedUsers } = useChat(
-    props.match.params.roomId,
-    username,
-  )
+  const {
+    messages,
+    sendMessage,
+    topic,
+    requestSetTopic,
+    connectedUsers,
+  } = useChat(roomId, username)
 
   useEffect(() => {
     if (!actualRoom && props.match?.params?.roomId) {
-      setActualRoom(props.match.params.roomId)
+      setActualRoom({
+        name: roomId,
+        slug: roomId,
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.match.params.roomId])
-
-  useEffect(() => {
-    if (!storedUsername) {
-      setUsername(username)
-    }
-  }, [username, storedUsername, setUsername])
+  }, [roomId])
 
   return (
     <Box column height="100%">
       <ChatHeader
+        topic={topic}
+        requestSetTopic={requestSetTopic}
         messages={messages}
         connectedUsers={connectedUsers}
         sendMessage={sendMessage}
-        actualRoom={props.match.params.roomId}
+        actualRoom={roomId}
       />
       <MessageBoard messages={messages} username={username} />
-      <MessageInput
-        sendMessage={sendMessage}
-        actualRoom={props.match.params.roomId}
-      />
+      <MessageInput sendMessage={sendMessage} actualRoom={roomId} />
     </Box>
   )
 }

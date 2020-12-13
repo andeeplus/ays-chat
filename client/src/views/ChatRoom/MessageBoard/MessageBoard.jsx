@@ -16,7 +16,7 @@ const MessageBoard = ({ messages = [], username, ...props }) => {
       pb="115px"
       column
       position="absolute"
-      top="115px"
+      top="130px"
       css="list-style-type: none;"
       width="100%"
       justifyContent="flex-end"

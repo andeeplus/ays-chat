@@ -4,10 +4,12 @@ const io = require('socket.io')(server, { path: '/api/socket.io' })
 const PORT = 4000
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 const NEW_USER_CONNECTED_EVENT = 'newUserConnected'
-const LATEST_50MSG_EVENT = 'Latest50msg'
+const NEW_CHAT_SET_TOPIC_EVENT = 'setTopic'
+const PREVIOUS_MESSAGES_REQUEST_EVENT = 'previousMessagesRequest'
 
 const connectedUsers = {}
 const previousMessages = {}
+const previousTopics = {}
 
 io.on('connection', (socket) => {
   console.log(`Client ${socket.id} connected`)
@@ -22,21 +24,30 @@ io.on('connection', (socket) => {
   connectedUsers[roomId].push(newUser)
   socket.join(roomId)
 
-  // Inform User about new login
   io.in(roomId).emit(NEW_USER_CONNECTED_EVENT, connectedUsers)
 
-  // Send latest messages
   if (previousMessages[roomId].length) {
-    socket.emit(LATEST_50MSG_EVENT, previousMessages[roomId])
+    io.to(socket.id).emit(
+      PREVIOUS_MESSAGES_REQUEST_EVENT,
+      previousMessages[roomId],
+    )
   }
 
-  // Listen for new messages
+  if (previousTopics[roomId]) {
+    io.to(socket.id).emit(NEW_CHAT_SET_TOPIC_EVENT, previousTopics[roomId])
+  }
+
   socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
     previousMessages[roomId].push({ ...data, username })
     io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, { ...data, username })
   })
 
-  // Leave the room if the user closes the socket
+  socket.on(NEW_CHAT_SET_TOPIC_EVENT, (topic) => {
+    console.log(`New topic has been set in Room: ${roomId} ${topic.topic}`)
+    previousTopics[roomId] = topic
+    io.in(roomId).emit(NEW_CHAT_SET_TOPIC_EVENT, topic)
+  })
+
   socket.on('disconnect', () => {
     console.log(`Client ${socket.id} diconnected`)
     connectedUsers[roomId] = connectedUsers[roomId].filter(
