@@ -23,7 +23,7 @@ const Home = () => {
         <Icon icon="plusSign" size={16} p={5} onClick={toggleCreateRoom} />
       </Header>
       {showCreateRoom && <CreateRoom zIndex={1} shadow="small" />}
-      <PreviousRooms />
+      {previousRooms.length ? <PreviousRooms /> : null}
     </Box>
   )
 }
