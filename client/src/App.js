@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { theme } from '@andeeplus/aplus-ui'
 import { ThemeProvider } from 'styled-components'
 import Routes from './Routes'
-import GlobalStyle from './GlobalStyle'
+import GlobalStyle from './styles/GlobalStyle'
 import store from './store'
 
 function App() {

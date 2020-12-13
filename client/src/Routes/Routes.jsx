@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import ChatRoom from '../ChatRoom/ChatRoom'
-import Home from '../Home/Home'
+import Home from '../views/Home'
+import ChatRoom from '../views/ChatRoom'
 
 function Routes() {
   return (

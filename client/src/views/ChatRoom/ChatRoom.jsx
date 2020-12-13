@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import useChat from '../useChat'
+import { Box } from '@andeeplus/aplus-ui'
+import useChat from '../../hooks/useChat'
 import MessageInput from './MessageInput'
 import MessageBoard from './MessageBoard'
 import ChatHeader from './ChatHeader'
 import {
   actualRoomSelector,
   usernameSelector,
-} from '../store/modules/user/selectors'
-import { actions } from '../store/modules/user/reducer'
-import { Box } from '@andeeplus/aplus-ui'
+} from '../../store/modules/user/selectors'
+import { actions } from '../../store/modules/user/reducer'
 
 const ChatRoom = (props) => {
   const dispatch = useDispatch()
@@ -36,7 +36,7 @@ const ChatRoom = (props) => {
     if (!storedUsername) {
       setUsername(username)
     }
-  }, [username])
+  }, [username, storedUsername, setUsername])
 
   return (
     <Box column height="100%">

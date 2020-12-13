@@ -10,7 +10,7 @@ const AlwaysScrollToBottom = () => {
   return <div ref={elementRef} />
 }
 
-const MessageBoard = ({ messages, username, ...props }) => {
+const MessageBoard = ({ messages = [], username, ...props }) => {
   return (
     <Box
       pb="115px"

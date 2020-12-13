@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
+import { getIsoString, ISOtoLongDate } from '../utils/chat'
 
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 const NEW_USER_CONNECTED_EVENT = 'newUserConnected'
@@ -10,14 +11,6 @@ const SOCKET_SERVER_URL =
     ? 'http://localhost:4000'
     : 'https://radio.armyoursampler.com'
 
-function ISOtoLongDate(isoString, locale = "en-US") {
-  const options = { timeStyle: "medium" };
-  const date = new Date(isoString);
-  const longDate = new Intl.DateTimeFormat(locale, options).format(date);
-  return longDate;
-}
-
-const getIsoString = () => new Date().toISOString();
 
 
 const useChat = (roomId, name) => {

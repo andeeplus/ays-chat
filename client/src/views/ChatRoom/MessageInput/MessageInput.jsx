@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { Box, Icon, Button } from '@andeeplus/aplus-ui'
-import ResizableTextarea from '../../components/ResizableTextArea'
-import useDeviceDetect from '../../hooks/useDeviceDetect'
+import ResizableTextarea from '../../../components/ResizableTextArea'
+import useDeviceDetect from '../../../hooks/useDeviceDetect'
 
 const WriteMessage = ({ sendMessage, actualRoom, ...props }) => {
   const [newMessage, setNewMessage] = React.useState('')

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Heading, Text } from '@andeeplus/aplus-ui'
 import { useSelector } from 'react-redux'
-import { actualRoomSelector } from '../../store/modules/user/selectors'
+import { actualRoomSelector } from '../../../store/modules/user/selectors'
 
 const ChatHeader = ({ connectedUsers, ...props }) => {
   const actualRoom = useSelector(actualRoomSelector)
@@ -10,7 +10,7 @@ const ChatHeader = ({ connectedUsers, ...props }) => {
       p={3}
       zIndex={1}
       bg="white"
-      position="sticky"
+      position="absolute"
       top={0}
       width="100%"
       height="115px"
