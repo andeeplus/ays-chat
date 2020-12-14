@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Box, Button, Icon, InputField } from '@andeeplus/aplus-ui'
+import { useState } from 'react'
+import { Box, Button, Icon } from '@andeeplus/aplus-ui'
 import { useSelector } from 'react-redux'
 import { actualRoomSelector } from '../../../store/modules/user/selectors'
 import { useHistory } from 'react-router-dom'
@@ -7,6 +7,7 @@ import ConnectedUsers from './ConnectedUser'
 import { InnerChatHeader, HeadingWithEllipsis } from './styles'
 import CopyUrl from './CopyUrl'
 import TopicLine from './TopicLine'
+import TopicBar from './TopicBar'
 
 const ChatHeader = ({ connectedUsers, topic, requestSetTopic, ...props }) => {
   const actualRoom = useSelector(actualRoomSelector)
@@ -24,48 +25,41 @@ const ChatHeader = ({ connectedUsers, topic, requestSetTopic, ...props }) => {
     toggleTopicBar()
   }
 
-  const handleOnKeyDownTopic = (e) => {
-    if (e.key === 'Enter') requestSetTopicAndCloseTab()
-  }
-
-  const handleTopicChange = (event) => {
-    setNewTopic(event.target.value)
-  }
-
   return (
-    <InnerChatHeader {...props}>
-      <Box alignItems="center">
-        <Button m={3} mr={0} minWidth="40px" width="40px" onClick={goToHome}>
-          <Icon icon="back" size={16} fill="white" />
-        </Button>
-        <Box width="100%" column p={3}>
-          <Box width="calc(100% - 60px)">
-            <HeadingWithEllipsis title={roomName}>
-              {decodeURIComponent(roomName)}
-            </HeadingWithEllipsis>
-            <CopyUrl roomId={actualRoom} />
-          </Box>
-          <TopicLine topic={topic} toggleTopicBar={toggleTopicBar} />
-        </Box>
-      </Box>
-      <ConnectedUsers connectedUsers={connectedUsers} />
-      {showTopicBar && (
-        <Box p={2} alignItems="center" bg="white" shadow="small" width="100%">
-          <InputField
-            type="text"
-            placeholder="Set new topic..."
-            boxSizing="border-box"
-            defaultValue={topic}
-            onChange={handleTopicChange}
-            onKeyDown={handleOnKeyDownTopic}
-          />
-          <Button m={3} onClick={requestSetTopicAndCloseTab}>
-            <Icon icon="plusSign" size={10} mr={2} fill="white" />
-            Topic
+    <>
+      <InnerChatHeader {...props}>
+        <Box
+          height="80px"
+          alignItems="center"
+          borderBottom="1px solid"
+          borderBottomColor="gray.2"
+        >
+          <Button mx={3} mr={0} minWidth="40px" width="40px" onClick={goToHome}>
+            <Icon icon="back" size={16} fill="white" />
           </Button>
+          <Box width="100%" column p={3}>
+            <Box>
+              <Box width="calc(100% - 30px)">
+                <HeadingWithEllipsis title={roomName} textSize={['sm', 'md']}>
+                  {decodeURIComponent(roomName)}
+                </HeadingWithEllipsis>
+              </Box>
+              <CopyUrl roomId={actualRoom} />
+            </Box>
+            <TopicLine topic={topic} toggleTopicBar={toggleTopicBar} />
+          </Box>
         </Box>
-      )}
-    </InnerChatHeader>
+        <ConnectedUsers connectedUsers={connectedUsers} />
+        {showTopicBar && (
+          <TopicBar
+            topic={topic}
+            newTopic={newTopic}
+            setNewTopic={setNewTopic}
+            onSubmit={requestSetTopicAndCloseTab}
+          />
+        )}
+      </InnerChatHeader>
+    </>
   )
 }
 

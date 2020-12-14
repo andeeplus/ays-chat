@@ -3,8 +3,7 @@ import { createGlobalStyle } from 'styled-components'
 export default createGlobalStyle`
   body, #root {
     margin: 0;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+    height: 100%;
     scrollbar-width: thin;
     scrollbar-color: ${(p) => p.theme.colors.gray[8]} ${(p) => p.theme.colors.gray[0]};
   }
@@ -14,7 +13,7 @@ export default createGlobalStyle`
   }
 
   ::-webkit-scrollbar {
-    width: 11px;
+    width: 10px;
   }
 
   ::-webkit-scrollbar-track {
