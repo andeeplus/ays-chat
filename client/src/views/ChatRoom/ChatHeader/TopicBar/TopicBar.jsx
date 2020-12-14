@@ -34,6 +34,7 @@ const TopicBar = ({ topic, newTopic, setNewTopic, onSubmit, ...props }) => {
         minWidth={['40px', 'auto']}
         disabled={!newTopic}
         onClick={onSubmit}
+        alignItems="center"
       >
         <Icon icon="plusSign" size={10} mr={[0, 2]} fill="white" />
         <Text display={['none', 'block']}>Topic</Text>
