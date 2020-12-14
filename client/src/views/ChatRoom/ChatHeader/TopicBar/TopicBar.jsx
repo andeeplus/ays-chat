@@ -37,7 +37,9 @@ const TopicBar = ({ topic, newTopic, setNewTopic, onSubmit, ...props }) => {
         alignItems="center"
       >
         <Icon icon="plusSign" size={10} mr={[0, 2]} fill="white" />
-        <Text display={['none', 'block']}>Topic</Text>
+        <Text textSize="sm" display={['none', 'block']}>
+          Topic
+        </Text>
       </Button>
     </Box>
   )

@@ -90,9 +90,12 @@ const CreateRoom = (props) => {
         minWidth={['40px', 'auto']}
         disabled={!newUsername || !newRoom}
         onClick={saveDataAndRedirect}
+        alignItems="center"
       >
         <Icon icon="plusSign" size={10} mr={[0, 2]} fill="white" />
-        <Text display={['none', 'block']}>Create Room</Text>
+        <Text textSize="sm" display={['none', 'block']}>
+          Create Room
+        </Text>
       </Button>
     </Box>
   )
