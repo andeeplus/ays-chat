@@ -9,7 +9,7 @@ const WriteMessage = ({ sendMessage, actualRoom, ...props }) => {
   const textArea = useRef()
 
   const handleNewMessageChange = (event) => {
-    setNewMessage(event.target.value)
+    setNewMessage(event.target.value.trimStart())
   }
 
   const handleSendMessage = () => {
@@ -36,6 +36,7 @@ const WriteMessage = ({ sendMessage, actualRoom, ...props }) => {
       bg="white"
       position="fixed"
       bottom={0}
+      pb={5}
       css="textarea{resize:none}"
       width="100%"
       alignItems="flex-end"

@@ -3,11 +3,11 @@ import { Box, Icon, Text } from '@andeeplus/aplus-ui'
 import { Message, Timestamp } from './style'
 import {
   isSameUser,
-  getDisplayTimestampDisplay,
+  getDisplayTimestamp,
   checkPrevMessageSameUser,
 } from '../utils'
 
-const Messages = memo(({ message, username, messages, index }) => {
+const Messages = memo(({ message, username, messages, index, ...props }) => {
   const messageToRead = useRef()
   const sameUser = isSameUser(message, username)
 
@@ -21,10 +21,10 @@ const Messages = memo(({ message, username, messages, index }) => {
   }
 
   return (
-    <Box column width="100%">
+    <Box column width="100%" {...props}>
       <Timestamp
         textAlign={sameUser ? 'end' : 'start'}
-        display={getDisplayTimestampDisplay(messages, index)}
+        display={getDisplayTimestamp(messages, index)}
       >
         {message.timestamp}
       </Timestamp>

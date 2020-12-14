@@ -83,7 +83,7 @@ const RegisterNewUser = () => {
       <Button my={2} onClick={saveDataAndRedirect}>
         Join the room
       </Button>
-      <Logo mt={10} />
+      <Logo mt={[5, 10]} />
     </Box>
   )
 }

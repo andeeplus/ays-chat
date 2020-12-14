@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Button, InputField, Box, InputLabel, Icon } from '@andeeplus/aplus-ui'
+import {
+  Button,
+  InputField,
+  Box,
+  InputLabel,
+  Icon,
+  Text,
+} from '@andeeplus/aplus-ui'
 import { useSelector, useDispatch } from 'react-redux'
 import { usernameSelector } from '../../../store/modules/user/selectors'
 import { actions } from '../../../store/modules/user/reducer'
@@ -42,7 +49,7 @@ const CreateRoom = (props) => {
 
   return (
     <Box
-      px={3}
+      px={[2, 3]}
       py={3}
       bg="white"
       width={1}
@@ -54,7 +61,7 @@ const CreateRoom = (props) => {
       {...props}
     >
       <Box>
-        <Box mr={3} column>
+        <Box mr={[1, 3]} column>
           <InputLabel>Room</InputLabel>
           <InputField
             type="text"
@@ -65,7 +72,7 @@ const CreateRoom = (props) => {
             onKeyDown={handleOnKeyDownRoom}
           />
         </Box>
-        <Box mx={2} column>
+        <Box mx={[1, 2]} column>
           <InputLabel>Username</InputLabel>
           <InputField
             type="text"
@@ -77,9 +84,15 @@ const CreateRoom = (props) => {
           />
         </Box>
       </Box>
-      <Button m={2} mb="2px" onClick={saveDataAndRedirect}>
-        <Icon icon="plusSign" size={10} mr={2} fill="white" />
-        Create Room
+      <Button
+        m={2}
+        mb="2px"
+        minWidth={['40px', 'auto']}
+        disabled={!newUsername || !newRoom}
+        onClick={saveDataAndRedirect}
+      >
+        <Icon icon="plusSign" size={10} mr={[0, 2]} fill="white" />
+        <Text display={['none', 'block']}>Create Room</Text>
       </Button>
     </Box>
   )

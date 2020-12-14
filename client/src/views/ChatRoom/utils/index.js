@@ -6,18 +6,15 @@ const isSameUser = (message, username) => {
   return message.ownedByCurrentUser || message.username === username
 }
 
-const getDisplayTimestampDisplay = (messages, i) => {
+const getDisplayTimestamp = (messages, i) => {
+
   if (messages[i - 1]) {
     const [prevH, prevM] = messages[i - 1].timestamp.split(':')
-    const [h, m] = messages[i - 1].timestamp.split(':')
-    const isSameMinute = prevH === h && prevM === m
+    const [h, m] = messages[i].timestamp.split(':')
+    const isSameMinute = prevM === m
     return isSameMinute ? 'none' : 'block'
   }
   return 'block'
 }
 
-export  {
-  checkPrevMessageSameUser,
-  isSameUser,
-  getDisplayTimestampDisplay
-}
+export { checkPrevMessageSameUser, isSameUser, getDisplayTimestamp }

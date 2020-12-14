@@ -10,18 +10,20 @@ const ConnectedUsers = ({ connectedUsers }) => {
       shadow="small"
       flexWrap="wrap"
       width="100%"
+      height="48px"
       justifyContent="space-between"
     >
       <Box>
         {connectedUsers.map((connected, i) => (
           <Box
+            maxHeight="32px"
             key={connected.username + i}
             alignItems="center"
             border="1px solid"
             borderColor="gray.2"
             borderRadius="3px"
             px={1}
-            ml={1}
+            mr={1}
           >
             <Box
               bg="green.4"
@@ -37,7 +39,7 @@ const ConnectedUsers = ({ connectedUsers }) => {
           </Box>
         ))}
       </Box>
-      <Icon icon="people" />
+      <Icon icon="people" mr={2} />
     </Box>
   )
 }
