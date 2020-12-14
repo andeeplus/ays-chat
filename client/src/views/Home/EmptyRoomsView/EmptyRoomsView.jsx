@@ -14,7 +14,7 @@ const EmptyRoomsView = () => {
     >
       <Heading mb={3}>Welcome!</Heading>
       <Text textSize="lg" textAlign="center">
-        Seems you don't have any room saved*
+        Seems you don't have any room saved, Create one!*
       </Text>
       <Text textAlign="center" textSize="xs" mt={6}>
         *This chat do not make use of any database. Once all the user get out of
