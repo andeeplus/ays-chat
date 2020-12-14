@@ -8,7 +8,7 @@ const PREVIOUS_MESSAGES_REQUEST_EVENT = 'previousMessagesRequest'
 const NEW_CHAT_SET_TOPIC_EVENT = 'setTopic'
 
 const SOCKET_SERVER_URL =
-  process.env.NODE_ENV !== 'development'
+  process.env.NODE_ENV === 'development'
     ? 'http://localhost:4000'
     : 'https://radio.armyoursampler.com'
 
