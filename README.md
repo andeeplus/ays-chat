@@ -1,7 +1,8 @@
 # AYS Chat 
 
+[try it](http://radio.armyoursampler.com/)
 
-## Prod
+## Prod
 ```
 ./build.sh prod   
 ```
